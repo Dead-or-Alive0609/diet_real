@@ -1,0 +1,38 @@
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #eefaff;
+}
+
+.auth-page h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.auth-page input {
+  width: 250px;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.auth-page button {
+  width: 250px;
+  padding: 10px;
+  background: #4ECDC4;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.auth-page p {
+  margin-top: 14px;
+  font-size: 14px;
+}

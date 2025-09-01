@@ -11,14 +11,12 @@
   background: #fff;
   border-radius: 0 0 16px 16px; 
   box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-  padding: 20px;
+  padding: 40px 20px;
   text-align: center;
-  padding: 40px 20px; 
 }
-
 .meal_header h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
 }
 
@@ -27,66 +25,221 @@
   display: flex;
   justify-content: center;
   margin: 20px 0;
-  gap: 10px;
+  width: 100%;
+  max-width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #9ECDE2;
 }
+
 .meal_tab {
   flex: 1;
-  padding: 10px;
+  padding: 5px;
   border: none;
-  border-radius: 12px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 800;
   cursor: pointer;
-  background: #d4ecf2;
-  color: #005a8b;
+  background: transparent; 
+  color: #366378; 
+  position: relative;
 }
+
+.meal_tab:first-child::after {
+  content: "|";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff; 
+}
+
 .meal_tab.active {
-  background: #005a8b;
-  color: #fff;
+  color: #fff; 
 }
 
 /* 네모 박스 */
 .meal_boxes {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  padding: 0 20px;
+  gap: 14px;
+  padding: 0 13px;
+  justify-items: center;
 }
+
 .meal_box {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-  padding: 20px;
   font-weight: 600;
+  text-align: left;
+  width: 100%;
+  max-width: 135px;
+  padding: 8px 15px 20px 15px;
+}
+
+/* 아침/점심/저녁/간식 제목 */
+.meal_box h3 {
+  color: #2C3E50;
+  margin-bottom: 6px;
+  padding-bottom: 10px;
+}
+
+/* 추가한 음식 개수 */
+.meal_count {
+  font-size: 11px;
+  color: #919191;
+  margin-bottom: 6px;
+}
+.meal_count span {
+  color: #1745D2; 
+  font-weight: 600;
+}
+
+/* 추가 버튼 */
+.meal_add-btn {
+  margin-top: 1px; 
+  padding: 3px 6px; 
+  background: #4ECDC4;
+  border: none;
+  border-radius: 18px; 
+  font-size: 12px; 
+  cursor: pointer;
+  color: #fff;
+  text-align: left;
+}
+
+/* 예시 박스 */
+.meal_example {
+  margin-top: 3px; 
+  font-size: 14px;
+  color: #777;
+  background: #f0f0f0;
+  border-radius: 4px;
+  padding: 10px; 
+  width: 100%;
+  min-height: 30px; 
+  box-sizing: border-box;
+  text-align: left;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+/* 팝업 */
+.meal_popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.meal_popup {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+  text-align: center;
+}
+.meal_popup input {
+  width: 100%;
+  padding: 8px;
+  margin: 12px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.meal_popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.meal_popup-buttons button {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.meal_popup-buttons button:first-child {
+  background: #ccc;
+}
+.meal_popup-buttons button:last-child {
+  background: #005a8b;
+  color: #fff;
 }
 
 /* 캐릭터 + 말풍선 */
 .meal_coach-section {
-  margin-top: 30px;
-  position: relative;
+  position: absolute;   
+  bottom: 60px;        
+  right: 20px;          
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  gap: 12px;
 }
+
 .meal_coach-img {
   width: 150px;
-  margin-bottom: 12px;
+  margin: 0;
 }
+
 .meal_speech-bubble {
-  position: relative;
   background: #fff;
   border-radius: 16px;
   padding: 8px 14px;
   font-size: 14px;
+  bottom: -20px;
+  position: relative;
+  left: -20px;
   font-weight: 600;
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  position: relative;
+  align-self: flex-start; 
 }
+
 .meal_speech-bubble::after {
   content: "";
   position: absolute;
-  top: -10px;
-  left: 20px;
-  border-width: 0 10px 10px 10px;
+  left: -8px; 
+  top: 10px;
+  border-width: 8px 8px 8px 0;
   border-style: solid;
-  border-color: transparent transparent #fff transparent;
+  border-color: transparent #fff transparent transparent;
+}
+
+
+/* 오늘 식단 항목 */
+.meal_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #919191;
+  padding: 4px 0;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  padding-left: 12px;
+}
+.meal_item::before {
+  content: "•"; 
+  position: absolute;
+  left: 0;
+  color: #919191;
+  font-size: 14px;
+  line-height: 1;
+}
+.meal_item:last-child {
+  border-bottom: none;
+}
+
+/* 삭제 버튼 */
+.meal_delete {
+  cursor: pointer;
+  margin-left: 8px;
+  color: #919191;
+  font-weight: bold;
 }
