@@ -1,0 +1,92 @@
+.meal_page {
+  text-align: center;
+  min-height: 100vh;
+  background-color: #EEFAFF;
+  padding-bottom: 100px;
+  box-sizing: border-box;
+}
+
+/* 상단 */
+.meal_header {
+  background: #fff;
+  border-radius: 0 0 16px 16px; 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  padding: 20px;
+  text-align: center;
+  padding: 40px 20px; 
+}
+
+.meal_header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* 탭 */
+.meal_tabs {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+.meal_tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #d4ecf2;
+  color: #005a8b;
+}
+.meal_tab.active {
+  background: #005a8b;
+  color: #fff;
+}
+
+/* 네모 박스 */
+.meal_boxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 0 20px;
+}
+.meal_box {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  padding: 20px;
+  font-weight: 600;
+}
+
+/* 캐릭터 + 말풍선 */
+.meal_coach-section {
+  margin-top: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.meal_coach-img {
+  width: 150px;
+  margin-bottom: 12px;
+}
+.meal_speech-bubble {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+.meal_speech-bubble::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  border-width: 0 10px 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent #fff transparent;
+}
