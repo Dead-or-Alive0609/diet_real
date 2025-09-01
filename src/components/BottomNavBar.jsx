@@ -22,10 +22,10 @@ const BottomNavBar = () => {
   return (
     <div className="bottom-nav">
       <img
-        src={currentPath === "/" ? homeIconActive : homeIcon}
+        src={currentPath === "/home" ? homeIconActive : homeIcon}
         alt="홈"
         className="nav-icon"
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/home")}
       />
       <img
         src={currentPath === "/weight" ? weightIconActive : weightIcon}
