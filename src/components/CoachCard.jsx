@@ -1,7 +1,7 @@
 import React from "react";
 import coachImg from "../assets/coach.png";
 
-const CoachCard = () => {
+const CoachCard = ({ diffText }) => {
   return (
     <div className="coach-card">
       <img src={coachImg} alt="햄토리 코치" className="coach-img" />
@@ -13,7 +13,7 @@ const CoachCard = () => {
 
       {/* 목표까지 남은 무게 */}
       <div className="goal-pill">
-        현재 목표까지 3.2kg 남았습니다!
+        {diffText || "환영합니다!"}
       </div>
     </div>
   );

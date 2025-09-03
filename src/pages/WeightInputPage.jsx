@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import coachImg from "../assets/coach.png";
 import editIcon from "../assets/edit.png";
 import BottomNavBar from "../components/BottomNavBar";
@@ -16,14 +16,54 @@ const WeightInputPage = () => {
 
   const today = new Date().toISOString().split("T")[0];
 
-  const saveGoalWeight = () => {
+  // 페이지 진입 시 목표체중, 오늘 체중 불러오기
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // 목표 체중 GET
+        const goalRes = await api.get("/target-weight");
+        if (goalRes.data?.targetWeight) {
+          setGoalWeight(goalRes.data.targetWeight + "kg");
+        } else {
+          setGoalWeight(""); // 데이터 없으면 "정보 없음."
+        }
+      } catch (err) {
+        console.warn("목표 체중 불러오기 실패:", err);
+        setGoalWeight(""); // 오류 시도 초기화
+      }
+
+      try {
+        // 오늘 체중 GET
+        const recordRes = await api.get(`/record?date=${today}`);
+        if (recordRes.data?.weight !== null && recordRes.data?.weight !== undefined) {
+          setTodayWeight(recordRes.data.weight + "kg");
+        } else {
+          setTodayWeight(""); // 데이터 없으면 "정보 없음."
+        }
+      } catch (err) {
+        console.warn("오늘 체중 불러오기 실패:", err);
+        setTodayWeight(""); // 오류 시도 초기화
+      }
+    };
+    fetchData();
+  }, [today]);
+
+  // 목표 체중 저장
+  const saveGoalWeight = async () => {
     if (tempGoal.trim() !== "") {
-      setGoalWeight(tempGoal + "kg");
+      const goalValue = parseFloat(tempGoal);
+      try {
+        await api.post("/target-weight", { targetWeight: goalValue });
+        setGoalWeight(goalValue + "kg");
+      } catch (err) {
+        alert("목표 체중 저장 실패: " + (err.response?.data?.message || err.message));
+      }
     }
     setShowGoalPopup(false);
     setTempGoal("");
   };
 
+  // 오늘 체중 저장
   const saveTodayWeight = async () => {
     if (tempToday.trim() !== "") {
       const weightValue = parseFloat(tempToday);
@@ -41,6 +81,7 @@ const WeightInputPage = () => {
     setTempToday("");
   };
 
+  // 목표까지 남은 체중 계산
   const goalNum = parseFloat(goalWeight);
   const todayNum = parseFloat(todayWeight);
   let diffText = "";
@@ -87,6 +128,7 @@ const WeightInputPage = () => {
         <div className="goal-pill">{diffText}</div>
       </div>
 
+      {/* 팝업 - 목표 체중 */}
       {showGoalPopup && (
         <div className="popup">
           <div className="popup-content">
@@ -110,6 +152,7 @@ const WeightInputPage = () => {
         </div>
       )}
 
+      {/* 팝업 - 오늘의 체중 */}
       {showTodayPopup && (
         <div className="popup">
           <div className="popup-content">

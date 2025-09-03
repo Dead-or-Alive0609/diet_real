@@ -56,17 +56,6 @@ const RecordPage = () => {
     setCurrentDate(newDate);
   };
 
-  // 목표까지 남은 체중 계산
-  let diffText = "정보 없음";
-  if (weight && goal) {
-    const goalNum = parseFloat(goal);
-    const todayNum = parseFloat(weight);
-    const diff = todayNum - goalNum;
-    if (diff > 0) diffText = `목표 체중까지 ${diff.toFixed(1)}kg 남았습니다!`;
-    else if (diff === 0) diffText = "목표를 달성했습니다!";
-    else diffText = `목표보다 ${Math.abs(diff).toFixed(1)}kg 적게 나가네요!`;
-  }
-
   // 좌우 날짜
   const prevDate = new Date(currentDate);
   prevDate.setDate(currentDate.getDate() - 1);
@@ -155,7 +144,6 @@ const RecordPage = () => {
 
       {/* 체중 카드 */}
       <div className="record-white-box weight-card">
-        <p className="diff-text">{diffText}</p>
         <h2 className="weight-value">
           {weight ? `${weight}kg` : "정보 없음"}
         </h2>
