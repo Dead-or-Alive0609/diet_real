@@ -1,26 +1,33 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 import "../styles/auth.css";
 
 const SignupPage = () => {
+  const { signup } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignup = () => {
-    if (!email || !password) {
-      alert("이메일과 비밀번호를 입력해주세요.");
+  const handleSignup = async () => {
+    if (!username || !email || !password) {
+      alert("모든 정보를 입력해주세요.");
       return;
     }
-    // 지금은 단순 저장 (나중엔 API 연동)
-    localStorage.setItem("user", JSON.stringify({ email, password }));
-    alert("회원가입이 완료되었습니다. 로그인해주세요.");
-    navigate("/login");
+    const success = await signup(username, email, password);
+    if (success) navigate("/login");
   };
 
   return (
     <div className="auth-page">
       <h2>회원가입</h2>
+      <input
+        type="text"
+        placeholder="이름"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
       <input
         type="email"
         placeholder="이메일"

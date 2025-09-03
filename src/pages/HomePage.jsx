@@ -6,7 +6,7 @@ import BottomNavBar from "../components/BottomNavBar";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-import "../styles/home.css";
+import "../styles/HomePage.css";
 
 const HomePage = () => {
   const { logout } = useContext(AuthContext);

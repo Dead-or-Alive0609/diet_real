@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BottomNavBar from "../components/BottomNavBar";
 import coach2 from "../assets/coach2.png";
 import "../styles/MealInputPage.css";
+import api from "../utils/api";
 
 const MealInputPage = () => {
   const [activeTab, setActiveTab] = useState("input");
@@ -14,6 +15,8 @@ const MealInputPage = () => {
   const [selectedMeal, setSelectedMeal] = useState(null);
   const [inputValue, setInputValue] = useState("");
 
+  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+
   const openPopup = (mealType) => {
     setSelectedMeal(mealType);
     setInputValue("");
@@ -24,33 +27,51 @@ const MealInputPage = () => {
     setInputValue("");
   };
 
-  const addMeal = () => {
+  const addMeal = async () => {
     if (inputValue.trim() !== "") {
-      setMeals((prev) => ({
-        ...prev,
-        [selectedMeal]: [...prev[selectedMeal], inputValue.trim()],
-      }));
+      const updatedFoods = [...meals[selectedMeal], inputValue.trim()];
+      try {
+        await api.post("/meal", {
+          date: today,
+          mealType: selectedMeal,
+          foods: updatedFoods,
+        });
+        setMeals((prev) => ({
+          ...prev,
+          [selectedMeal]: updatedFoods,
+        }));
+      } catch (err) {
+        alert("식단 저장 실패: " + (err.response?.data?.message || err.message));
+      }
     }
     closePopup();
   };
 
-  const deleteMeal = (meal, idx) => {
+  const deleteMeal = async (meal, idx) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      setMeals((prev) => ({
-        ...prev,
-        [meal]: prev[meal].filter((_, i) => i !== idx),
-      }));
+      const updatedFoods = meals[meal].filter((_, i) => i !== idx);
+      try {
+        await api.post("/meal", {
+          date: today,
+          mealType: meal,
+          foods: updatedFoods,
+        });
+        setMeals((prev) => ({
+          ...prev,
+          [meal]: updatedFoods,
+        }));
+      } catch (err) {
+        alert("삭제 실패: " + (err.response?.data?.message || err.message));
+      }
     }
   };
 
   return (
     <div className="meal_page">
-      {/* 상단 타이틀 */}
       <div className="meal_header meal_full-width">
         <h2>식단 입력</h2>
       </div>
 
-      {/* 탭 선택 */}
       <div className="meal_tabs">
         <button
           className={`meal_tab ${activeTab === "input" ? "active" : ""}`}
@@ -66,7 +87,6 @@ const MealInputPage = () => {
         </button>
       </div>
 
-      {/* 탭 내용 */}
       {activeTab === "input" ? (
         <div className="meal_boxes">
           {Object.keys(meals).map((meal) => (
@@ -109,7 +129,6 @@ const MealInputPage = () => {
         </div>
       )}
 
-      {/* 팝업 */}
       {selectedMeal && (
         <div className="meal_popup-overlay">
           <div className="meal_popup">
@@ -128,13 +147,11 @@ const MealInputPage = () => {
         </div>
       )}
 
-      {/* 캐릭터 + 말풍선 */}
       <div className="meal_coach-section">
         <img src={coach2} alt="햄토리 코치" className="meal_coach-img" />
         <div className="meal_speech-bubble">오 많이도 먹었네</div>
       </div>
 
-      {/* 네비게이션 */}
       <BottomNavBar />
     </div>
   );

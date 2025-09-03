@@ -8,6 +8,7 @@ import MealInputPage from "./pages/MealInputPage";
 import RecordPage from "./pages/RecordPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import CalendarPage from "./pages/CalendarPage";
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -49,6 +50,14 @@ const App = () => (
           element={
             <PrivateRoute>
               <RecordPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/calendar"
+          element={
+            <PrivateRoute>
+              <CalendarPage />
             </PrivateRoute>
           }
         />

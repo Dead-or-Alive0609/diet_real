@@ -9,13 +9,13 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       alert("이메일과 비밀번호를 입력해주세요.");
       return;
     }
-    login(email, password);
-    navigate("/home");
+    const success = await login(email, password);
+    if (success) navigate("/home");
   };
 
   return (
