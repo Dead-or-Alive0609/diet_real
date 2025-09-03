@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BottomNavBar from "../components/BottomNavBar";
 import coach2 from "../assets/coach2.png";
 import "../styles/MealInputPage.css";
@@ -17,6 +17,29 @@ const MealInputPage = () => {
 
   const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
+  // 페이지 처음 로드 시 오늘 기록 불러오기
+  useEffect(() => {
+    const fetchMeals = async () => {
+      try {
+        const res = await api.get(`/record?date=${today}`);
+        if (res.data?.meals) {
+          setMeals({
+            아침: res.data.meals["아침"] || [],
+            점심: res.data.meals["점심"] || [],
+            저녁: res.data.meals["저녁"] || [],
+            간식: res.data.meals["간식"] || [],
+          });
+        } else {
+          setMeals({ 아침: [], 점심: [], 저녁: [], 간식: [] });
+        }
+      } catch (err) {
+        console.error("오늘 식단 불러오기 실패:", err);
+        setMeals({ 아침: [], 점심: [], 저녁: [], 간식: [] });
+      }
+    };
+    fetchMeals();
+  }, [today]);
+
   const openPopup = (mealType) => {
     setSelectedMeal(mealType);
     setInputValue("");
@@ -27,6 +50,7 @@ const MealInputPage = () => {
     setInputValue("");
   };
 
+  // 끼니별 추가
   const addMeal = async () => {
     if (inputValue.trim() !== "") {
       const updatedFoods = [...meals[selectedMeal], inputValue.trim()];
@@ -47,6 +71,7 @@ const MealInputPage = () => {
     closePopup();
   };
 
+  // 끼니별 삭제
   const deleteMeal = async (meal, idx) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       const updatedFoods = meals[meal].filter((_, i) => i !== idx);
@@ -89,7 +114,7 @@ const MealInputPage = () => {
 
       {activeTab === "input" ? (
         <div className="meal_boxes">
-          {Object.keys(meals).map((meal) => (
+          {["아침", "점심", "저녁", "간식"].map((meal) => (
             <div className="meal_box" key={meal}>
               <h3>{meal}</h3>
               <button className="meal_add-btn" onClick={() => openPopup(meal)}>
@@ -101,7 +126,7 @@ const MealInputPage = () => {
         </div>
       ) : (
         <div className="meal_boxes">
-          {Object.keys(meals).map((meal) => (
+          {["아침", "점심", "저녁", "간식"].map((meal) => (
             <div className="meal_box" key={meal}>
               <h3>{meal}</h3>
               <div className="meal_count">

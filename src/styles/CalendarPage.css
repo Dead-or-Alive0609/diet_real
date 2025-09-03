@@ -1,23 +1,29 @@
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
+    sans-serif !important;
+}
+
 .calendar-page {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: #fff; /* ✅ 배경 흰색 */
-  font-family: "Helvetica Neue", Arial, sans-serif; /* 미니멀한 글씨체 */
+  background: #fff; 
 }
 
 .calendar-header {
-  text-align: center; /* ✅ 중앙 정렬 */
-  padding: 16px 0;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
+  display: flex;
+  justify-content: center;  
+  align-items: center;      
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  flex-grow: 1; /* ✅ 세로 꽉 채우기 */
+  flex-grow: 1; 
   padding: 10px;
   box-sizing: border-box;
 }
@@ -75,7 +81,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 250px; /* ✅ 스크롤바 더 길게 */
+  max-height: 250px; 
   overflow-y: auto;
 }
 
@@ -100,4 +106,17 @@
   color: white;
   border-radius: 8px;
   cursor: pointer;
+}
+
+/* 오늘 날짜 */
+.day-cell.today {
+  background-color: rgba(255, 182, 193, 0.6); 
+  color: #333;              
+  border-radius: 8px;     
+  font-weight: 600;
+}
+
+/* 주말 (토/일) */
+.day-cell.weekend {
+  color: red;
 }

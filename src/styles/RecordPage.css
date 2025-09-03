@@ -1,6 +1,12 @@
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
+    sans-serif !important;
+}
+
 .record-page {
-  height: 100vh;           /* 화면 높이 꽉 채우기 */
-  overflow: hidden;        /* 스크롤 방지 */
+  height: 100vh;           
+  overflow: hidden;        
   background: #eefaff;
   display: flex;
   flex-direction: column;
@@ -14,7 +20,7 @@
   align-items: center;
   gap: 40px;
   padding: 20px;
-  transition: all 0.3s ease; /* ✅ 부드럽게 */
+  transition: all 0.3s ease; 
 }
 .date-faded {
   color: #aaa;
@@ -28,12 +34,12 @@
 /* 체중 카드 */
 .record-white-box {
   background: #fff;
-  border-radius: 12px;   /* 모서리 살짝 줄임 */
+  border-radius: 12px;   
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin: 12px auto;     /* 위아래 여백 줄이고 가운데 정렬 */
-  padding: 12px;         /* 내부 여백도 살짝 줄임 */
-  width: 85%;            /* 가로 크기 더 줄임 */
-  max-width: 380px;      /* 최대 크기 더 줄임 */
+  margin: 12px auto;     
+  padding: 12px;        
+  width: 85%;            
+  max-width: 380px;      
   text-align: center;
 }
 
@@ -49,8 +55,8 @@
 
 /* 식단 카드 */
 .meal-card {
-  flex: none;            /* 화면 꽉 안 차게 */
-  width: 85%;            /* 가로 크기 줄임 */
+  flex: none;            
+  width: 85%;           
   max-width: 360px;
   margin: 12px auto;
   display: flex;
